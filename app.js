@@ -1,10 +1,9 @@
-import { startConfetti, stopConfetti, removeConfetti } from './confetti.js';
+import { startConfetti, stopConfetti, removeConfetti } from './confetti.js'
 
 const playerScoreEl = document.getElementById('playerScore')
 const playerChoiceEl = document.getElementById('playerChoice')
 const computerScoreEl = document.getElementById('computerScore')
 const computerChoiceEl = document.getElementById('computerChoice')
-const resultText = document.getElementById('resultText')
 
 const playerRock = document.getElementById('playerRock')
 const playerPaper = document.getElementById('playerPaper')
@@ -19,6 +18,7 @@ const computerLizard = document.getElementById('computerLizard')
 const computerSpock = document.getElementById('computerSpock')
 
 const allGameIcons = document.querySelectorAll('.far')
+const resultText = document.getElementById('resultText')
 
 const choices = {
    rock: {name: 'Rock', defeats: ['scissors', 'lizard']},
@@ -32,26 +32,28 @@ let playerScoreNumber = 0
 let computerScoreNumber = 0
 let computerChoice = ''
 
-// Reset all 'selected' icons
+// Reset all 'selected' icons, remove confetti
 const resetSelected = () => {
-  allGameIcons.forEach((icon) => {
-     icon.classList.remove('selected')
-  })
+   allGameIcons.forEach((icon) => {
+      icon.classList.remove('selected')
+   })
    stopConfetti()
    removeConfetti()
 }
 
-// Reset Score & player
+// Reset score & playerChoice/computerChoice
 const resetAll = () => {
    playerScoreNumber = 0
    computerScoreNumber = 0
    playerScoreEl.textContent = playerScoreNumber
    computerScoreEl.textContent = computerScoreNumber
    playerChoiceEl.textContent = ''
-   computerScoreEl.textContent = ''
+   computerChoiceEl.textContent = ''
    resultText.textContent = ''
    resetSelected()
 }
+
+window.resetAll = resetAll
 
 // Random computer choice
 const computerRandomChoice = () => {
@@ -97,10 +99,10 @@ const displayComputerChoice = () => {
    }
 }
 
-// Check result, increase score, update resultText
-const updateScore = (playerChoice) => {
+// Check result, increase scores, update resultText
+const updateScore = playerChoice => {
    if (playerChoice === computerChoice) {
-      resultText.textContent = "It's a tie."
+      resultText.textContent = 'It\'s a tie.'
    } else {
       const choice = choices[playerChoice]
       if (choice.defeats.indexOf(computerChoice) > -1) {
@@ -117,7 +119,7 @@ const updateScore = (playerChoice) => {
 }
 
 // Call functions to process turn
-const checkResult = (playerChoice) => {
+const checkResult = playerChoice => {
    resetSelected()
    computerRandomChoice()
    displayComputerChoice()
@@ -125,7 +127,7 @@ const checkResult = (playerChoice) => {
 }
 
 // Passing player selection value and styling icons
-const select = (playerChoice) => {
+const select = playerChoice => {
    checkResult(playerChoice)
    // Add 'selected' styling & playerChoice
    switch (playerChoice) {
@@ -153,6 +155,7 @@ const select = (playerChoice) => {
          break
    }
 }
+
 window.select = select
 
 // On startup, set initial values
