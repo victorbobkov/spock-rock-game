@@ -37,6 +37,18 @@ const resetSelected = () => {
   })
 }
 
+// Reset Score & player
+const resetAll = () => {
+   playerScoreNumber = 0
+   computerScoreNumber = 0
+   playerScoreEl.textContent = playerScoreNumber
+   computerScoreEl.textContent = computerScoreNumber
+   playerChoiceEl.textContent = ''
+   computerScoreEl.textContent = ''
+   resultText.textContent = ''
+   resetSelected()
+}
+
 // Random computer choice
 const computerRandomChoice = () => {
    const computerChoiceNumber = Math.random()
@@ -87,7 +99,6 @@ const updateScore = (playerChoice) => {
       resultText.textContent = "It's a tie."
    } else {
       const choice = choices[playerChoice]
-      console.log(choice.defeats.indexOf(computerChoice))
       if (choice.defeats.indexOf(computerChoice) > -1) {
          resultText.textContent = 'You Won!'
          playerScoreNumber++
@@ -138,3 +149,5 @@ const select = (playerChoice) => {
    }
 }
 
+// On startup, set initial values
+resetAll()
